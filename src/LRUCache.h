@@ -65,6 +65,7 @@ private:
 
   size_t maxElements;
   unsigned long maxAge;
+  bool updateAgeOnGet;
 
   void disposeAll();
   void evict();

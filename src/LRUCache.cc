@@ -106,6 +106,12 @@ NAN_METHOD(LRUCache::New) {
         cache->maxAge = convertLocalValueToRawType<uint32_t>(prop);
       }
 
+      cache->updateAgeOnGet = true;
+	  prop = GET_FIELD(config, "updateAgeOnGet").ToLocalChecked();
+      if (IS_BOOL(prop)) {
+        cache->updateAgeOnGet = convertLocalValueToRawType<bool>(prop);
+      }
+
       prop = GET_FIELD(config, "maxLoadFactor").ToLocalChecked();
       if (IS_NUM(prop)) {
         cache->data.max_load_factor(convertLocalValueToRawType<double>(prop));
@@ -155,8 +161,10 @@ NAN_METHOD(LRUCache::Get) {
     info.GetReturnValue().SetUndefined();
   }
   else {
-    // Update timestamp
-    entry->touch(now);
+    if (cache->updateAgeOnGet) {
+      // Update timestamp if updateAgeOnGet
+      entry->touch(now);
+	}
 
     // Move the value to the end of the LRU list.
     cache->lru.splice(cache->lru.end(), cache->lru, entry->pointer);
