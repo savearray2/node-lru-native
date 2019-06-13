@@ -108,7 +108,7 @@ NAN_METHOD(LRUCache::New) {
 
       cache->updateAgeOnGet = true;
 	  prop = GET_FIELD(config, "updateAgeOnGet").ToLocalChecked();
-      if (IS_BOOL(prop)) {
+      if (IS_BOOLEAN(prop)) {
         cache->updateAgeOnGet = convertLocalValueToRawType<bool>(prop);
       }
 
