@@ -20,13 +20,13 @@ Based on the [node-hashtable](https://github.com/isaacbwagner/node-hashtable) li
 Install via npm:
 
 ```
-$ npm install lru-native2
+$ npm install lru-native2-ex
 ```
 
 Then:
 
 ```js
-var LRUCache = require('lru-native2');
+var LRUCache = require('lru-native2-ex');
 var cache = new LRUCache({ maxElements: 1000 });
 cache.set('some-key', 42);
 var value = cache.get('some-key');
