@@ -1,9 +1,7 @@
 lru-native2-ex
 ===========
-[![Build Status](https://travis-ci.org/d3m3vilurr/node-lru-native.svg?branch=master)](https://travis-ci.org/d3m3vilurr/node-lru-native)
 
-This is an implementation of a simple in-memory cache for node.js, supporting LRU (least-recently-used) eviction
-and TTL expirations.
+This is an implementation of a simple in-memory cache for node.js, supporting LRU (least-recently-used) eviction and TTL expirations. This is a fork based on the work done by _kibae_. The library has been updated with a switch that allows the library to ignore updating the age of LRU cache item on a _get_ request. 
 
 It was developed as an alternative to the (excellent) [node-lru-cache](https://github.com/isaacs/node-lru-cache)
 library for use with hashes with a very large number of items. V8 normally does a good job of optimizing the
@@ -27,7 +25,7 @@ $ npm install lru-native2
 
 Then:
 
-```javascript
+```js
 var LRUCache = require('lru-native2');
 var cache = new LRUCache({ maxElements: 1000 });
 cache.set('some-key', 42);
@@ -46,8 +44,12 @@ $ node-gyp build
 
 To configure the cache, you can pass a hash to the `LRUCache` constructor with the following options:
 
-```
+```js
 var cache = new LRUCache({
+
+  // Sets whether or not to update the age of a cache item on a get request. When false, the item will only stay in the cache for a maximum of maxAge from the last set. If true, the item will stay in the cache for a maximum maxAge since the last set OR get.
+  // Default: true
+  updateAgeOnGet: true,
 
   // The maximum number of items to add to the cache before evicting the least-recently-used item.
   // Default: 0, meaning there is no maximum.
@@ -106,6 +108,7 @@ Set the maximum age (in milliseconds) of an item
 
 # Changelog
 
+- 1.3.0 -- Added updateAgeOnGet property
 - 1.0.0 -- Update the timestamp when get a value(like common LRU cache). Added SetMaxAge(), SetMaxElements()
 - *forked*
 - 0.4.0 -- Added support for newer versions of Node via NAN
