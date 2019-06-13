@@ -1,4 +1,4 @@
-lru-native2
+lru-native2-ex
 ===========
 [![Build Status](https://travis-ci.org/d3m3vilurr/node-lru-native.svg?branch=master)](https://travis-ci.org/d3m3vilurr/node-lru-native)
 
